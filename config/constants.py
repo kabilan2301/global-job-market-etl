@@ -46,3 +46,13 @@ RAW_DATA_FOLDER = "data/raw"
 PROCESSED_DATA_FOLDER = "data/processed"
 
 LOG_FOLDER = "logs"
+
+#--------------------------------
+# Retry Configuration
+#--------------------------------
+
+MAX_RETRIES = 3
+
+INITIAL_RETRY_DELAY = 2
+
+RETRY_MULTIPLIER = 2
