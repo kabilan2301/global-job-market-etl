@@ -1,24 +1,34 @@
+"""
+Application entry point.
+"""
+
 from config.logger import get_logger
 
 from extract.extractor import JobExtractor
-
 
 logger = get_logger(__name__)
 
 
 def main():
 
-    logger.info("Pipeline Started")
+    logger.info("=" * 60)
+
+    logger.info("Global Job Market ETL Pipeline Started")
 
     extractor = JobExtractor()
 
-    data = extractor.extract()
+    data = extractor.run()
 
     logger.info(
-        f"Retrieved {len(data['results'])} jobs"
+        "Pipeline completed successfully."
     )
 
-    logger.info("Pipeline Finished")
+    logger.info(
+        "Jobs extracted: %s",
+        len(data["results"]),
+    )
+
+    logger.info("=" * 60)
 
 
 if __name__ == "__main__":
