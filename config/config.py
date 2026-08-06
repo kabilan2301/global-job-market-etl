@@ -24,3 +24,8 @@ RAW_DATA_PATH = PROJECT_ROOT / "data" / "raw"
 PROCESSED_DATA_PATH = PROJECT_ROOT / "data" / "processed"
 
 LOG_PATH = PROJECT_ROOT / "logs"
+
+# GCP Configuration
+
+GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")
+GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME")

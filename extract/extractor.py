@@ -36,4 +36,4 @@ class JobExtractor:
             saved_file,
         )
 
-        return data
+        return data, saved_file
