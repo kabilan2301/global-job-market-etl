@@ -1,19 +1,25 @@
-# def main():
-#     print("Global Job Market ETL pipeline entry point")
+from config.logger import get_logger
+
+from extract.extractor import JobExtractor
 
 
-# if __name__ == "__main__":
-#     main()
-from config.config import (
-    ADZUNA_APP_ID,
-    COUNTRY,
-    RESULTS_PER_PAGE,
-    RAW_DATA_PATH,
-)
+logger = get_logger(__name__)
 
-print("Configuration Loaded Successfully")
-print("----------------------------------")
-print(f"Country          : {COUNTRY}")
-print(f"Results Per Page : {RESULTS_PER_PAGE}")
-print(f"Raw Path         : {RAW_DATA_PATH}")
-print(f"App ID Loaded    : {'YES' if ADZUNA_APP_ID else 'NO'}")
+
+def main():
+
+    logger.info("Pipeline Started")
+
+    extractor = JobExtractor()
+
+    data = extractor.extract()
+
+    logger.info(
+        f"Retrieved {len(data['results'])} jobs"
+    )
+
+    logger.info("Pipeline Finished")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,16 +1,45 @@
 import requests
 
+from config.config import (
+    ADZUNA_APP_ID,
+    ADZUNA_APP_KEY,
+    COUNTRY,
+    RESULTS_PER_PAGE,
+)
 
-class AdzunaClient:
-    BASE_URL = "https://api.adzuna.com/v1/api/jobs"
+from config.constants import (
+    BASE_URL,
+    REQUEST_TIMEOUT,
+)
 
-    def __init__(self, app_id: str, app_key: str) -> None:
-        self.app_id = app_id
-        self.app_key = app_key
+from config.logger import get_logger
 
-    def search_jobs(self, country: str, params: dict) -> dict:
-        url = f"{self.BASE_URL}/{country}/search/1"
-        auth = {"app_id": self.app_id, "app_key": self.app_key}
-        response = requests.get(url, params={**params, **auth})
+from extract.base_client import BaseJobClient
+
+
+logger = get_logger(__name__)
+
+
+class AdzunaClient(BaseJobClient):
+
+    def fetch_jobs(self):
+
+        url = (
+            f"{BASE_URL}/{COUNTRY}/search/1"
+            f"?app_id={ADZUNA_APP_ID}"
+            f"&app_key={ADZUNA_APP_KEY}"
+            f"&results_per_page={RESULTS_PER_PAGE}"
+        )
+
+        logger.info("Connecting to Adzuna API")
+
+        response = requests.get(
+            url,
+            timeout=REQUEST_TIMEOUT,
+        )
+
         response.raise_for_status()
+
+        logger.info("Successfully retrieved response")
+
         return response.json()
